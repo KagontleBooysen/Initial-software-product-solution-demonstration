@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Respiratory Disease Classification Using Lung Sounds</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/img/favicon.png" rel="icon">
+  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/css/style3.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+      <h1 class="col-lg-8"><a href="index.html"><span>Respiratory Disease Classification</span></a></h1>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{{ url_for('first')}}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Predict</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('chart')}}">Analysis</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('model')}}">Model</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('precautions')}}">Precautions</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1><span>Impilo: An AI Device to Detect Early Lung Cancer Using Cough Analysis</span></h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- ======= Lung Sound Features Section ======= -->
+<section id="lung-features" class="lung-features">
+  <div class="container" data-aos="fade-up">
+
+    <!-- Section Header -->
+    <div class="row text-center" style="margin-bottom: 40px;">
+      <div class="col-md-12">
+        <h1>Major Lung Sound Features</h1>
+      </div>
+    </div>
+
+    <!-- Row 1: Charts -->
+    <div class="row text-center align-items-center">
+      <!-- Lung Sound Features Column Chart -->
+      <div class="col-md-4">
+        <div>
+        <h5>Lung Sound Features Distribution</h5>
+        <div id="columnchart_values" style="width: 800px; height: 300px; margin: 0 auto;"></div>
+        <p style="text-align: justify;">This bar graph illustrates the distribution of lung sound features across different conditions, including COPD, Healthy, Pneumonia, Asthma, Bronchiolitis, and LRTI, with their respective percentages indicated by color-coded bars for easy differentiation.</p>
+      </div>
+    </div>
+
+      <!-- Gender Distribution Pie Chart -->
+      <div class="col-md-4">
+        <div>
+        <h5> Gender Distribution</h5>
+        <div id="piechart_3d" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+        <p style="text-align: justify;">This pie chart illustrates the gender distribution of lung cancer cases, showing that 63.5% of the cases are among males, while 36.8% are among females, highlighting the disparity in lung cancer prevalence between genders.</p>
+      </div>
+    </div>
+
+      <!-- Accuracy Plot -->
+      <div class="col-md-4">
+        <div>
+        <h5>Accuracy Over Epochs</h5>
+        <div id="container" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+        <p style="text-align: justify;"> This graph depicts the relationship between training epochs and model accuracy, illustrating how the model's performance improves over time as it learns from the training data.</p>
+      </div>
+    </div>
+
+    <!-- Row 2: Images -->
+    <div class="row text-center align-items-center mt-4">
+      <!-- Graph Image 1 -->
+      <div class="col-md-4">
+        <div>
+        <h5>Graph Representation of Data</h5>
+        <img src="../static/img/graph1.png" alt="Graph 1" style="width: 300px; height: auto;">
+        <p style="text-align: justify;">This graph depicts the relationship between age and the number of lung cancer patients, illustrating how the incidence of lung cancer varies across different age groups, often increasing with age.</p>
+      </div>
+    </div>
+
+
+      <!-- Heatmap Image 1 -->
+      <div class="col-md-4">
+        <div>
+        <h7>Heatmap of Correlations in Merged Data</h7>
+        <img src="../static/img/heatmap1.png" alt="Heatmap 1" style="width: 300px; height: auto;">
+        <p style="text-align: justify;">This heatmap displays the correlations between various lung sound features—specifically, the start, end, crackles, and wheezes—allowing for the visualization of relationships and potential patterns in lung health indicators.</p>
+      </div>
+    </div>
+
+      <!-- Additional Image 1 -->
+      <div class="col-md-4">
+        <div>
+        <h7>Training and Validation accuracy</h7>
+        <img src="../static/img/output.png" alt="Additional Image 1" style="width: 300px; height: auto;">
+        <p style="text-align: justify;">This graph illustrates the training and validation accuracy of a model over time, highlighting its performance and ability to generalize from the training data to unseen validation data during the learning process.</p>
+      </div>
+    </div>
+
+    <!-- Row 3: Additional Images -->
+    <div class="row text-center align-items-center mt-4">
+      <!-- Additional Image 2 -->
+      <div class="col-md-4">
+        <img src="../static/img/output1.png" alt="Additional Image 2" style="width: 300px; height: auto;">
+        <p>Additional Image 2 Description</p>
+      </div>
+
+      <!-- Additional Image 3 -->
+      <div class="col-md-4">
+        <img src="../static/img/photo3.png" alt="Additional Image 3" style="width: 300px; height: auto;">
+        <p>Additional Image 3 Description</p>
+      </div>
+
+      <!-- Additional Image 4 -->
+      <div class="col-md-4">
+        <img src="../static/img/photo4.png" alt="Additional Image 4" style="width: 300px; height: auto;">
+        <p>Additional Image 4 Description</p>
+      </div>
+    </div>
+
+    <!-- Row 4: More Additional Images -->
+    <div class="row text-center align-items-center mt-4">
+      <!-- Additional Image 5 -->
+      <div class="col-md-4">
+        <img src="../static/img/additional_image5.png" alt="Additional Image 5" style="width: 300px; height: auto;">
+        <p>Additional Image 5 Description</p>
+      </div>
+
+      <!-- Additional Image 6 -->
+      <div class="col-md-4">
+        <img src="../static/img/additional_image6.png" alt="Additional Image 6" style="width: 300px; height: auto;">
+        <p>Additional Image 6 Description</p>
+      </div>
+
+      <!-- Additional Image 7 -->
+      <div class="col-md-4">
+        <img src="../static/img/additional_image7.png" alt="Additional Image 7" style="width: 300px; height: auto;">
+        <p>Additional Image 7 Description</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Google Charts Script -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+ // Load Google Charts package
+google.charts.load("current", { packages: ["corechart"] });
+google.charts.setOnLoadCallback(drawColumnChart);
+
+function drawColumnChart() {
+  // Define the data for the chart
+  var data = google.visualization.arrayToDataTable([
+    ["Condition", "Percentage", { role: "style" }, { role: "annotation" }],
+    ["COPD", 1182, "#00FFFF", "COPD"],
+    ["Healthy", 1175, "#DF01A5", "Healthy"],
+    ["Pneumonia", 1160, "#FF0000", "Pneumonia"],
+    ["Asthma", 2154, "#FFBF00", "Asthma"],
+    ["Bronchiolitis", 2154, "#40E0D0", "Bronchiolitis"],
+    ["LRTI", 1154, "#1E90FF", "LRTI"],
+    ["Healthy", 3154, "#32CD32", "Healthy"]
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1, 2, 3]); // Include the color and annotation in the view
+
+  // Define chart options
+  var options = {
+    width: 500, // Adjusted width for better display
+    height: 300,
+    bar: { groupWidth: "60%" }, // Adjust bar width
+    legend: { position: "top", alignment: "center" }, // Place legend at the top center
+    annotations: {
+      alwaysOutside: true,
+      textStyle: {
+        fontSize: 12,
+        color: 'black',
+        auraColor: 'none'
+      }
+    },
+    tooltip: { isHtml: true },
+    colors: ["#00FFFF", "#DF01A5", "#FF0000", "#FFBF00", "#40E0D0", "#1E90FF", "#32CD32"], // Specify bar colors
+    chartArea: { width: '70%', height: '70%' }
+  };
+
+  // Create and draw the chart
+  var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+  chart.draw(view, options);
+}
+
+
+  // Gender Distribution Pie Chart
+  google.charts.setOnLoadCallback(drawPieChart);
+  function drawPieChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Type', 'percentage'],
+      ['Male', 63.5],
+      ['Female', 36.8]
+    ]);
+
+    var options = {
+      is3D: true,
+      width: 300,
+      height: 300
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+  }
+
+  // Accuracy Plot
+  google.charts.setOnLoadCallback(drawLineChart);
+  function drawLineChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Epochs');
+    data.addColumn('number', 'Training_Accuracy');
+    data.addColumn('number', 'Testing_Accuracy');
+    data.addRows([
+      ['10',  0.75, 0.74],
+      ['20',  0.82, 0.81],
+      ['30',  0.85, 0.86],
+      ['40',  0.92, 0.93],
+      ['50',  0.96, 0.97],
+    ]);
+
+    var options = {
+      hAxis: { title: 'Epochs' },
+      vAxis: { title: 'Accuracy' },
+      width: 300,
+      height: 300
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('container'));
+    chart.draw(data, options);
+  }
+</script>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; 2024 <strong><span>Respiratory Disease Classification</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/vendor/aos/aos.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/js/main.js"></script>
+</body>
+</html>

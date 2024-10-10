@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips from Doctors and Experts</title>
+    <style>
+        body {
+            margin: 0; /* Removes default margin */
+            color: black; /* Sets default text color to black */
+            font-family:"Times New Roman", Times, serif; /* Sets a default font for the page */
+            background-color: white; /* Light grey background for better contrast */
+            font-size: 70px;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 30px; /* Adjusts title size */
+            font-family:"Times New Roman", Times, serif; /* Sets a default font for the page */
+            margin: 20px 0; /* Adds space above and below the title */
+            padding: 20px; /* Adds padding around the text */
+            border-radius: 8px; /* Rounds the corners */
+            color: black; /* Text color */
+        }
+
+        .container {
+            max-width: 1200px; /* Set a maximum width for the container */
+            margin: 0 auto; /* Center the container */
+            padding: 20px; /* Add padding to the container */
+        }
+
+        .row {
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allows items to wrap to the next line */
+            justify-content: space-around; /* Spaces items evenly */
+            align-items: flex-start; /* Aligns items to the start */
+        }
+
+        .video-box {
+            text-align: justify; /* Centers text inside the video box */
+            margin: 20px; /* Space between video boxes */
+            flex: 1 1 300px; /* Flex-grow, flex-shrink, and base width */
+            max-width: 500px; /* Maximum width for each video box */
+        }
+
+        .video-box h4 {
+            font-weight: bold; /* Makes headings bold */
+            font-size: 20px; /* Adjusts title size */
+            font-family:"Times New Roman", Times, serif; /* Sets a default font for the page */ 
+            margin: 10px 0; /* Space above and below headings */
+            color: black; /* Heading color */
+        }
+
+        .video-box p {
+            margin-top: 5px; /* Space above the text below the video */
+            color: black; /* Text color */
+        }
+
+        iframe {
+            width: 100%; /* Makes the video responsive */
+            height: 200px; /* Set a fixed height for the video */
+        }
+
+        @media (max-width: 768px) {
+            iframe {
+                height: 150px; /* Adjust height for smaller screens */
+            }
+
+            .video-box {
+                max-width: 100%; /* Make video boxes full width on small screens */
+                flex: 1 1 100%; /* Allow boxes to take full width */
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      
+        <title>Respiratory Disease Classification</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="../static/img/favicon.png" rel="icon">
+        <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <!-- Vendor CSS Files -->
+        <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+        <!-- Template Main CSS File -->
+        <link href="../static/css/style.css" rel="stylesheet">
+      
+        <!-- =======================================================
+        * Template Name: Company - v4.6.1
+        * Template URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
+        * Author: BootstrapMade.com
+        * License: https://bootstrapmade.com/license/
+        ======================================================== -->
+      </head>
+      
+      <body>
+      
+        <!-- ======= Top Bar ======= -->
+        <div id="topbar" class="d-flex align-items-center fixed-top">
+          <div class="container d-flex justify-content-center justify-content-md-between">
+      
+             
+      
+            
+          </div>
+        </div>
+      
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top d-flex align-items-cente">
+          <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+          
+            <h1 class="col-lg-8"><a href="index.html"> <span>Respiratory Disease Classification</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="../static/img/logo.png" alt="" class="img-fluid"></a>-->
+      
+            <nav id="navbar" class="navbar order-last order-lg-0">
+              <ul>
+                <li><a class="nav-link scrollto" href="{{ url_for('first')}}">Home</a></li>
+                  <li><a class="nav-link scrollto" href="{{ url_for('model')}}">Model</a></li>
+                 
+              <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Prediction</a></li>
+              <li><a class="nav-link scrollto" href="{{ url_for('chart')}}">Analaysis</a></li>
+              <li><a class="nav-link scrollto" href="{{ url_for('precautions')}}">Precautions</a></li>
+      
+      
+                 
+                 </ul>
+                
+             
+           </nav>
+           
+      
+            
+      
+          </div>
+        </header><!-- End Header --> 
+
+<section id="videos" class="videos">
+    <div class="container">
+        <div class="title">Expert Insights: Unlocking Secrets to a Healthier You!</div>
+        <div class="row">
+            <div class="video-box">
+                <h4>1. Early Detection Saves Lives!</h4>
+                <iframe src="https://www.youtube.com/embed/MmC_rgRJDoY" title="How to Wear a Mask Properly" frameborder="0" allowfullscreen></iframe>
+                <p>Early detection of lung cancer is crucial because it significantly increases the chances of successful treatment and survival. Many lung cancer cases show no symptoms in the early stages, which is why proactive screenings, especially for those at higher risk, are essential. By catching lung cancer early, you can make informed decisions about your health and access potentially life-saving interventions.</p>
+            </div>
+            <div class="video-box">
+                <h4>2. Choose life over smoke</h4>
+                <iframe src="https://www.youtube.com/embed/HFgtol421r4" title="Covering Coughs and Sneezes" frameborder="0" allowfullscreen></iframe>
+                <p>Quitting smoking is a courageous step toward reclaiming your health and vitality. Each cigarette you resist brings you closer to improved lung function, better circulation, and enhanced overall well-being. Not only will you experience increased energy levels and a clearer mind, but you’ll also save money and protect your loved ones from the harmful effects of secondhand smoke.</p>
+            </div>
+            <div class="video-box">
+                <h4>3. Why lung cancer screening is important ?</h4>
+                <iframe src="https://www.youtube.com/embed/NQd3afgUV4M" title="Hand Washing Techniques" frameborder="0" allowfullscreen></iframe>
+                <p>Lung cancer screening is crucial for early detection, significantly increasing the chances of successful treatment and survival. Many people with lung cancer do not exhibit symptoms until the disease is advanced, making regular screening essential for high-risk individuals, such as smokers and those with a family history of lung disease. By identifying lung cancer at its earliest stages, healthcare providers can implement timely interventions, leading to better outcomes.</p>
+            </div>
+            <div class="video-box">
+                <h4>4. Never too late to change your habits</h4>
+                <iframe src="https://www.youtube.com/embed/qDIKTkx4J38" title="Importance of Sleep" frameborder="0" allowfullscreen></iframe>
+                <p>Changing bad habits is a transformative journey that empowers individuals to lead healthier, more fulfilling lives. It requires self-awareness, commitment, and patience, as breaking the cycle of ingrained behaviors can be challenging. However, by setting realistic goals and replacing negative habits with positive alternatives, anyone can foster lasting change.</p>
+            </div>
+            <div class="video-box">
+                <h4>5. Stop Smoking</h4>
+                <iframe src="https://www.youtube.com/embed/uv0G3tarCAM" title="Tips to Quit Smoking" frameborder="0" allowfullscreen></iframe>
+                <p> When you quit smoking, your body begins an incredible healing process almost immediately. Within just 20 minutes, your heart rate starts to drop, and after 12 hours, carbon monoxide levels in your blood return to normal. As days turn into weeks, your lung function improves, making breathing easier and reducing the risk of respiratory infections. Over the months, circulation improves, and the risk of heart disease decreases significantly</p>
+            </div>
+            <div class="video-box">
+                <h4>6. How does a person die from cancer?</h4>
+                <iframe src="https://www.youtube.com/embed/87m19xZ--BE" title="Understanding Alcohol Limits" frameborder="0" allowfullscreen></iframe>
+                <p>Even though cancer can lead to death, it's not necessarily cancer that causes someone to die. This video will go over questions you may have about how cancer causes death. You will learn about the growth and complications of cancer, as well as the factors that contribute to cancer deaths. As cancer cells grow, they can invade and disrupt the function of vital organs. For example, lung cancer can impair breathing, while liver cancer can interfere with metabolic processes, ultimately leading to organ failure.</p>
+            </div>
+            <div class="video-box">
+                <h4>7. 5 Signs of Lung Cancer</h4>
+                <iframe src="https://www.youtube.com/embed/Al3xpbQ2rA4" title="Stress Management Techniques" frameborder="0" allowfullscreen></iframe>
+                <p>Lung cancer often presents with a variety of symptoms that can vary depending on the individual and the stage of the disease. Common signs include a persistent cough that worsens over time, chest pain that may be sharp or dull, and changes in the cough, such as coughing up blood or rust-colored sputum. Individuals may also experience shortness of breath, wheezing, and frequent respiratory infections. Unexplained weight loss, fatigue, and loss of appetite can also be significant indicators.</p>
+            </div>
+            <div class="video-box">
+              <h4>8. What is Lung Cancer?</h4>
+              <iframe src="https://www.youtube.com/embed/PlWWB0t_dNk" title="Stress Management Techniques" frameborder="0" allowfullscreen></iframe>
+              <p>Lung cancer is a major public health problem in the United States that causes approximately 25% of all cancer deaths. Smoking tobacco consumption is the leading cause of lung cancer which has a poor prognosis because only one out of every six patients survives for more than five years after receiving their diagnosis. Studies suggest that the consumption of smoke-tobacco related products has not been declining which means that the lung cancer epidemic will continue for years to come.</p>
+        </div>
+        <div class="video-box">
+          <h4>9. Understanding Cells in Lung Cancer</h4>
+          <iframe src="https://www.youtube.com/embed/Lu07Uxx6Dks" title="Stress Management Techniques" frameborder="0" allowfullscreen></iframe>
+          <p>This animation explains how healthy lungs function and how non-small cell lung cancer can occur. Non-small cell lung cancer is one of two major types of lung cancer and it is the most common type of lung cancer in the US. This animation will help you understand what causes this type of cancer and what are its common risk factors. While cigarette smoking is the most significant risk factor, there are other risk factors and this disease can occur in those who have never smoked.</p>
+    </div>
+</section>
+
+</body>
+</html>

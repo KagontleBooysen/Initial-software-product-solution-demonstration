@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Respiratory Disease Classification</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/img/favicon.png" rel="icon">
+  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Poppins" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/css/style1.css" rel="stylesheet">
+
+  <!-- Firebase JS Files (Use the non-modular version) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <!-- Initialize Firebase -->
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-pouPitkIGgyNBzXAtqtnxnM2m9GbFuM",
+      authDomain: "capstone-f5d03.firebaseapp.com",
+      projectId: "capstone-f5d03",
+      storageBucket: "capstone-f5d03.appspot.com",
+      messagingSenderId: "978581004811",
+      appId: "1:978581004811:web:9bf6bb533cdc8dca931d0e"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <!-- Main JavaScript File -->
+  <script src="../static/firebase-tutorial/main.js"></script>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+      <h1 class="col-lg-8"><a href="index.html"><span>Respiratory Disease Classification</span></a></h1>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto" href="{{ url_for('first') }}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{{ url_for('login') }}">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1><span>Impilo: An AI Device to Detect Early Lung Cancer Using Cough Analysis</span></h1>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <!-- Main Content -->
+  <main>
+    <h1>Welcome to the Impilo Platform</h1>
+    <div class="content-container">
+      <!-- Section for logged-out view -->
+      <section id="logged-out-view">
+        <div class="auth-page_container">
+          <div class="form-container">
+            <!-- Toggle buttons for sign-in and sign-up forms -->
+            <div class="toggle-container">
+              <div id="signin-toggle-btn" class="auth-toggle-signin">Login</div>
+              <div id="signup-toggle-btn" class="auth-toggle-signup">Sign Up</div>
+            </div>
+
+            <!-- Sign in form -->
+            <div id="signin-form" class="login-form-container">
+              <div class="login-form">
+                <h2>Login</h2>
+                <div class="input-group">
+                  <input type="email" id="signin-email-input" name="email" placeholder="Email" required>
+                  <div id="email-error-message" class="error-msg"></div>
+                </div>
+                <div class="input-group">
+                  <input type="password" id="signin-password-input" name="password" placeholder="Password" required>
+                  <div id="password-error-message" class="error-msg"></div>
+                </div>
+                <div id="sign-in-btn" class="login-btn">Sign In</div>
+                <div class="alt-signin-divider">OR</div>
+                <button id="sign-in-with-google-btn" class="google-login-btn">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="Google Sign-in" class="google-btn-logo"> Sign in with Google
+                </button>
+              </div>
+            </div>
+
+            <!-- Sign up form -->
+            <div id="signup-form" class="login-form-container">
+              <div class="login-form">
+                <h2>Sign Up</h2>
+                <div class="input-group">
+                  <input type="email" id="signup-email-input" name="email" placeholder="Email" required>
+                  <div id="email-error-message" class="error-msg"></div>
+                </div>
+                <div class="input-group">
+                  <input type="password" id="signup-password-input" name="password" placeholder="Password" required>
+                  <div id="password-error-message" class="error-msg"></div>
+                </div>
+                <div id="sign-up-btn" class="login-btn">Create Account</div>
+                <div class="alt-signin-divider">OR</div>
+                <button id="sign-up-with-google-btn" class="google-login-btn">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="Google Sign-in" class="google-btn-logo"> Sign Up with Google
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Script to toggle between signin and signup forms -->
+  <script>
+    const signinToggleBtn = document.getElementById("signin-toggle-btn");
+    const signupToggleBtn = document.getElementById("signup-toggle-btn");
+    const signInFormView = document.getElementById("signin-form");
+    const signUpFormView = document.getElementById("signup-form");
+
+    signinToggleBtn.addEventListener('click', () => {
+      signInFormView.style.display = 'block';
+      signUpFormView.style.display = 'none';
+    });
+
+    signupToggleBtn.addEventListener('click', () => {
+      signInFormView.style.display = 'none';
+      signUpFormView.style.display = 'block';
+    });
+
+    // Authentication Logic
+    const signInBtn = document.getElementById("sign-in-btn");
+    const signUpBtn = document.getElementById("sign-up-btn");
+    const signInWithGoogleBtn = document.getElementById("sign-in-with-google-btn");
+    const signUpWithGoogleBtn = document.getElementById("sign-up-with-google-btn");
+
+    // Sign In Functionality
+    signInBtn.addEventListener('click', () => {
+      const email = document.getElementById("signin-email-input").value;
+      const password = document.getElementById("signin-password-input").value;
+
+      // Firebase sign in using global variable
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("User signed in:", user);
+          window.location.href = "{{url_for('index')}}"; // Redirect after login
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing in:", errorCode, errorMessage);
+          alert(errorMessage); // Display error message
+        });
+    });
+
+    // Sign Up Functionality
+    signUpBtn.addEventListener('click', () => {
+      const email = document.getElementById("signup-email-input").value;
+      const password = document.getElementById("signup-password-input").value;
+
+      // Firebase sign up using global variable
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("User signed up:", user);
+          window.location.href = "{{url_for('index')}}"; // Redirect after sign up
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing up:", errorCode, errorMessage);
+          alert(errorMessage); // Display error message
+        });
+    });
+
+    // Google Sign-In Functionality
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    signInWithGoogleBtn.addEventListener('click', () => {
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          // Signed in
+          const user = result.user;
+          console.log("User signed in with Google:", user);
+          window.location.href = "{{url_for('index')}}"; // Redirect after login
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing in with Google:", errorCode, errorMessage);
+          alert(errorMessage); // Display error message
+        });
+    });
+
+    signUpWithGoogleBtn.addEventListener('click', () => {
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          // Signed in
+          const user = result.user;
+          console.log("User signed up with Google:", user);
+          window.location.href = "{{url_for('index')}}"; // Redirect after sign up
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing up with Google:", errorCode, errorMessage);
+          alert(errorMessage); // Display error message
+        });
+    });
+  </script>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/vendor/aos/aos.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/vendor/swiper/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>

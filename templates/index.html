@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+ <title>Respiratory Disease ClassificationUsing Lung Sounds</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Favicons -->
+  <link href="../static/img/favicon.png" rel="icon">
+  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/css/style2.css" rel="stylesheet">
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-pouPitkIGgyNBzXAtqtnxnM2m9GbFuM",
+      authDomain: "capstone-f5d03.firebaseapp.com",
+      projectId: "capstone-f5d03",
+      storageBucket: "capstone-f5d03.appspot.com",
+      messagingSenderId: "978581004811",
+      appId: "1:978581004811:web:9bf6bb533cdc8dca931d0e"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference to the Realtime Database
+    const database = firebase.database();
+  </script>
+
+  <!-- =======================================================
+  * Template Name: Kelly - v4.6.0
+  * Template URL: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+
+
+<body>
+  <!-- ======= Top Bar ======= -->
+  <div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <!-- Top Bar content, if any, can be added here -->
+    </div>
+  </div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+      <h1 class="col-lg-8">
+        <a href="index.html"><span>Respiratory Disease Classification</span></a>
+      </h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{{ url_for('first')}}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('index')}}">Predict</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('chart')}}">Analysis</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('model')}}">Model</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('precautions')}}">Precautions</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>Impilo: An AI Device to Detect Early Lung Cancer Using Cough Analysis</h1>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    {% if ospf %}
+    <div class="body-index">
+      <div class="titleColor">
+        <h1 class="text-center">Respiratory Disorder Classification Using Lung Cancer Sounds</h1>
+      </div>
+
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <form action="#" method="POST" enctype="multipart/form-data" id="patient-form">
+            <div class="mb-3">
+              <label for="name">Patient Name:</label>
+              <input type="text" class="form-control" id="name" name="name" required />
+            </div>
+
+            <div class="mb-3">
+              <label for="age">Age:</label>
+              <input type="number" class="form-control" id="age" name="age" required min="0" placeholder="Enter age" />
+            </div>
+
+            <div class="mb-3">
+              <label for="sickness">Sickness:</label>
+              <input type="text" class="form-control" id="sickness" name="sickness" placeholder="Enter the sickness" />
+            </div>
+
+            <div class="mb-3">
+              <label for="healthHistory">Health History:</label>
+              <textarea class="form-control" id="healthHistory" name="healthHistory" rows="3"
+                placeholder="Describe any existing health conditions..."></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="address">Address:</label>
+              <input type="text" class="form-control" id="address" name="address" required placeholder="123 Main St, City" />
+            </div>
+
+            <div class="mb-3">
+              <label for="contact">Contact Number:</label>
+              <input type="text" class="form-control" id="contact" name="contact" required placeholder="(123) 456-7890" />
+            </div>
+
+            <div class="mb-3">
+              <label for="lungSounds">Input Patient Lung Cancer Sound File (.wav format):</label>
+              <input type="file" name="lungSounds" class="my-3" onchange="readURL(this);" accept=".wav" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary my-3">Analyze Lung Sound</button>
+            <button type="button" class="btn btn-success my-3" onclick="submitData()">Data Collection</button>
+            <button type="button" class="btn btn-info my-3" onclick="retrieveData()">Review Patient Report</button>
+          </form>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        function readURL(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              document.getElementById("lungSounds").src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        } 
+      </script>
+    </div>
+
+
+    {% endif %} <!-- This closes the first if block -->
+
+
+
+  
+
+
+    {% if ospf == 0 %}
+
+
+    <div class="prediction">
+      <h1 id="name" class="text-center my-3 py-2 border border-secondary">Patient Report of {{n}}</h1>
+      <div class="container">
+        <h2 class="my-2 no-print">Given Sound File:</h2>
+        <audio controls class="no-print">
+          <source src="{{lungSounds}}" type="audio/wav" alt="{{n}} lung sounds" />
+          Your browser does not support the audio element.
+          </audio>
+          <br />
+
+        <div class="row my-3">
+          <!-- First Image -->
+          <div class="col-md-6 text-center">
+            <img id="lungSounds" src="{{ url_for('static', filename='uploads/outSoundWave.png') }}" alt="lung sounds img" width="500" height="500" />
+            <p class="mt-2">Sound Wave Representation</p> <!-- Description for the first image -->
+          </div>
+
+          <!-- Second Image -->
+          <div class="col-md-6 text-center">
+            <img id="lungSounds2" src="{{ url_for('static', filename='uploads/outSoundMFCC.png') }}" alt="lung sounds MFCC img" width="500" height="500" />
+            <p class="mt-2">MFCC Representation of Lung Sounds</p> <!-- Description for the second image -->
+          </div>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid my-2 px-2">
+          <h2 class="my-2">{{ res[0] if res[0] != 'Lung Cancer Not Detected' else '' }}</h2>
+        </div>
+
+
+        <button type="button" class="btn btn-info my-3" onclick="loadPatientForm()">Review Patient Report</button>
+
+      </div>
+    </div>
+
+    
+
+
+    
+    {% endif %} <!-- This closes the second if block -->
+  </main>
+
+
+
+<!-- Modal Pop-up for Retrieved Data -->
+<div id="retrievedDataModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Retrieved Patient Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p id="retrieved-data"></p>
+        <div class="row">
+          <!-- Prediction Images -->
+          <div class="col-md-6 text-center">
+            <img id="lungSounds2" src="{{ url_for('static', filename='uploads/outSoundMFCC.png') }}" alt="lung sounds MFCC img" width="230" height="250"/>
+            <p class="mt-2">Retrieved Sound Wave Representation</p>
+          </div>
+
+          <div class="col-md-6 text-center">
+            <img id="lungSounds" src="{{ url_for('static', filename='uploads/outSoundWave.png') }}" alt="lung sounds img" width="230" height="250"/>
+            <p class="mt-2">Retrieved MFCC Representation</p>
+          </div>
+        </div>
+
+        <!-- Add a paragraph for the findings -->
+        <p style="text-align: justify;">
+          The retrieved sound wave and MFCC representations are crucial in diagnosing lung conditions. The sound wave provides an audible representation of lung activity, while the MFCC representation captures the frequency characteristics of the lung sounds. Analyzing these images allows healthcare professionals to identify abnormalities such as wheezing, crackles, or abnormal patterns that may indicate underlying respiratory diseases, including pneumonia and lung cancer. Early detection through these analyses can lead to more effective treatment plans and better patient outcomes.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+ // Data Collection Functionality
+  document.getElementById("submit-data-btn").addEventListener("click", function() {
+    // Functionality to collect data into the database
+    alert('Data Collection functionality will go here');
+  });
+
+  // Retrieve Data Functionality
+  function retrieveData() {
+    var patientName = document.getElementById('name').value;
+
+    // Reference the Firebase database and retrieve the patient's data
+    var database = firebase.database();
+    var ref = database.ref('patients/' + patientName);
+
+    ref.once('value')
+      .then(function(snapshot) {
+        var patientData = snapshot.val();
+        if (patientData) {
+          // Display patient data in the modal
+          document.getElementById('retrieved-data').innerHTML =
+            '<strong>Patient Name:</strong> ' + patientName + '<br>' +
+            '<strong>Age:</strong> ' + patientData.age + '<br>' +
+            '<strong>Sickness:</strong> ' + patientData.sickness + '<br>' +
+            '<strong>Health History:</strong> ' + patientData.healthHistory + '<br>' +
+            '<strong>Address:</strong> ' + patientData.address + '<br>' +
+            '<strong>Contact Number:</strong> ' + patientData.contact + '<br>';
+
+          // Set the images if available in the retrieved data
+          if (patientData.lungSoundWave && patientData.lungMFCC) {
+            document.getElementById('retrievedLungSounds').src = patientData.lungSoundWave;
+            document.getElementById('retrievedLungSounds2').src = patientData.lungMFCC;
+          }
+
+          // Show the modal
+          document.getElementById('retrievedDataModal').style.display = 'block';
+        } else {
+          alert('No data found for patient: ' + patientName);
+        }
+      })
+      .catch(function(error) {
+        console.error('Error retrieving data: ', error);
+        alert('Error retrieving data for patient: ' + patientName);
+      });
+  }
+
+  // Close modal function
+  function closeModal() {
+    document.getElementById('retrievedDataModal').style.display = 'none';
+  }
+
+
+
+  function loadPatientForm() {
+    fetch('/predict')  // Adjust this if necessary to match your route for the form
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Assuming you have a div with id 'form-container' to load the form into
+            document.getElementById('form-container').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+
+
+
+</script>
+
+
+
+
+
+  
+
+
+
+ <!-- Firebase submission script -->
+ <script>
+  function submitData() {
+    // Capture form data
+    const patientName = document.getElementById("name").value;
+    const patientAge = document.getElementById("age").value;
+    const patientSickness = document.getElementById("sickness").value;
+    const patientHealthHistory = document.getElementById("healthHistory").value;
+    const patientAddress = document.getElementById("address").value;
+    const patientContact = document.getElementById("contact").value;
+
+
+    // Push data to Firebase Realtime Database
+    database.ref('patients/' + patientName).set({
+      name: patientName,
+      age: patientAge,
+      sickness: patientSickness,
+      healthHistory: patientHealthHistory,
+      address: patientAddress,
+      contact: patientContact,
+    }).then(() => {
+      alert('Data successfully saved to Firebase!');
+    }).catch((error) => {
+      console.error('Error saving data: ', error);
+    });
+  }
+
+
+
+  
+</script>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+<!-- https://api.netlify.com/api/v1/sites/180c5660-b729-4cde-8c90-77a7925de7e3/submissions -->
