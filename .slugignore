@@ -1,3 +1,32 @@
-/Test Sound
-/vendor
-/venv
+# Ignore virtual environment and Python cache files
+venv/
+__pycache__/
+
+# Ignore local development and test directories
+tests/
+docs/
+*.log
+
+# Ignore system files and editor configurations
+*.DS_Store
+*.env
+*.md
+*.git/
+.idea/
+.vscode/
+
+# Ignore Node modules if using a JavaScript framework in the project
+node_modules/
+
+# Ignore any large data files or backups not needed for production
+*.sqlite3
+*.csv
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+
+# Ignore other directories that may not be needed for deployment
+examples/
+coverage/
