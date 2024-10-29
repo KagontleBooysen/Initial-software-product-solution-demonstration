@@ -1,1 +1,5 @@
 /Test Sound
+/__pycache__
+/venv/
+/training
+/validation
