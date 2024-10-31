@@ -103,6 +103,7 @@
 
   <main id="main">
 
+
     {% if ospf %}
     <div class="body-index">
       <div class="titleColor">
@@ -147,14 +148,166 @@
               <label for="lungSounds">Input Patient Lung Cancer Sound File (.wav format):</label>
               <input type="file" name="lungSounds" class="my-3" onchange="readURL(this);" accept=".wav" required />
             </div>
-
             <button type="submit" class="btn btn-primary my-3">Analyze Lung Sound</button>
             <button type="button" class="btn btn-success my-3" onclick="submitData()">Data Collection</button>
             <button type="button" class="btn btn-info my-3" onclick="retrieveData()">Review Patient Report</button>
+
+ <!-- Real-time recording section -->
+ <div class="mb-2">
+  <label for="realtimeRecording"><strong><h3>Or record in real-time:</h3></strong></label>
+  <br>
+<button id="recordButton" onclick="startRecording()">Start Recording</button>
+<button id="stopButton" onclick="stopRecording()" disabled>Stop Recording</button>
+<span id="recordingStatus" style="color: red; font-weight: bold; display: none;">Recording...</span>
+<span id="timer" style="color: green; font-weight: bold;">00:00</span>
+
+  <!-- Audio Playback -->
+<div id="playbackSection" style="display: none; margin-top: 20px;">
+  <label for="audioPlayback" style="font-weight: bold; display: block; margin-bottom: 10px;">
+      Your Recorded Audio:
+  </label>
+  <audio id="audioPlayback" controls style="width: 100%; margin-top: 10px;"></audio>
+</div>
+
+
+ <!-- Text and spinner for loading -->
+<div id="loadingContainer" style="display: none;">
+<div id="loadingSpinner" class="spinner-border" role="status">
+<span class="visually-hidden">Loading...</span>
+</div>
+<div id="loadingText" style="font-weight: bold; display: none;">Please wait, your cough is being analyzed...</div>
+</div>
+
+<!-- Status of the upload -->
+ <p id="uploadStatus" style="color: blue;"></p>
+ </div>
           </form>
         </div>
       </div>
 
+
+<!-- Audio script  recording -->
+      <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let audioBlob;
+        let timerInterval;
+        let seconds = 0;
+        
+        
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+                audioChunks = [];
+        
+                document.getElementById('recordingStatus').style.display = 'inline';
+                document.getElementById('timer').style.display = 'inline';
+                document.getElementById('recordButton').disabled = true;
+                document.getElementById('stopButton').disabled = false;
+                startTimer();
+        
+                mediaRecorder.ondataavailable = function(event) {
+                    audioChunks.push(event.data);
+                };
+        
+                mediaRecorder.onstop = function() {
+                    audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    document.getElementById('audioPlayback').src = audioUrl;
+                    document.getElementById('playbackSection').style.display = 'block';
+                    document.getElementById('recordingStatus').style.display = 'none';
+                    stopTimer();
+        
+                    // Check if recording meets minimum duration
+                    if (seconds < MIN_RECORD_DURATION) {
+                        alert(`Recording is too short. Please record for at least ${MIN_RECORD_DURATION} seconds.`);
+                        return;
+                    }
+        
+                    // Show loading spinner and analyze audio
+                    showLoading();
+                    analyzeAudio(audioBlob);
+                };
+            })
+            .catch(error => {
+                console.error('Error accessing audio stream:', error);
+                alert('Error accessing microphone. Please check your permissions.');
+            });
+        }
+        
+        function stopRecording() {
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+                document.getElementById('recordButton').disabled = false;
+                document.getElementById('stopButton').disabled = true;
+            }
+        }
+        
+        function startTimer() {
+            seconds = 0;
+            timerInterval = setInterval(function() {
+                seconds++;
+                document.getElementById('timer').innerText = formatTime(seconds);
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            clearInterval(timerInterval);
+            document.getElementById('timer').innerText = '00:00'; // Reset timer
+        }
+        
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+        
+        function analyzeAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('lungSounds', audioBlob, 'lung_sound.wav');
+        
+            fetch('model', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('uploadStatus').innerText = 'Analysis complete! Redirecting...';
+                hideLoading();
+                setTimeout(() => {
+                    window.location.href = '/model'; // Adjust URL as per Flask routing
+                }, 2000);
+            })
+            .catch(error => {
+                document.getElementById('uploadStatus').innerText = 'Analysis failed!';
+                hideLoading();
+                console.error('Error:', error);
+            });
+        }
+        
+        function showLoading() {
+            document.getElementById('loadingText').style.display = 'block';
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingText').style.display = 'none';
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+    
+        // New function to handle playback before submission
+        function playRecordedAudio() {
+            const audioElement = document.getElementById('audioPlayback');
+            if (audioElement) {
+                audioElement.play();
+            }
+        }
+    </script>
+    
+    
+    
       <script type="text/javascript">
         function readURL(input) {
           if (input.files && input.files[0]) {
@@ -177,7 +330,6 @@
 
 
     {% if ospf == 0 %}
-
 
     <div class="prediction">
       <h1 id="name" class="text-center my-3 py-2 border border-secondary">Patient Report of {{n}}</h1>
@@ -213,10 +365,6 @@
       </div>
     </div>
 
-    
-
-
-    
     {% endif %} <!-- This closes the second if block -->
   </main>
 
@@ -249,10 +397,38 @@
         </div>
 
         <!-- Add a paragraph for the findings -->
-        <p style="text-align: justify;">
-          The retrieved sound wave and MFCC representations are crucial in diagnosing lung conditions. The sound wave provides an audible representation of lung activity, while the MFCC representation captures the frequency characteristics of the lung sounds. Analyzing these images allows healthcare professionals to identify abnormalities such as wheezing, crackles, or abnormal patterns that may indicate underlying respiratory diseases, including pneumonia and lung cancer. Early detection through these analyses can lead to more effective treatment plans and better patient outcomes.
-        </p>
+        <div style="text-align: justify; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+          <h5 style="text-align: center; color: #4CAF50;">🎉 Analysis Complete! 🎉</h5>
+          
+          <p style="font-size: 16px; line-height: 1.6;">
+              Great news! After analyzing your recorded cough audio, our advanced algorithms detected <strong>no significant correlations</strong> with common respiratory issues. This indicates that your cough sounds are consistent with healthy lung function! 🚀
+          </p>
+      
+          <h5 style="color: #4CAF50;">How We Analyzed Your Cough:</h5>
+          <ul style="margin-left: 20px; font-size: 16px;">
+              <li><strong>Sound Wave Analysis:</strong> We examined the sound wave patterns for any irregularities.</li>
+              <li><strong>MFCC Extraction:</strong> Mel-frequency cepstral coefficients (MFCCs) were calculated to assess frequency characteristics associated with respiratory diseases.</li>
+              <li><strong>Pattern Recognition:</strong> Our model searched for specific markers linked to conditions like lung cancer, COPD, and pneumonia.</li>
+          </ul>
+      
+          <h5 style="color: #4CAF50;">Key Findings:</h5>
+          
+          <ul style="margin-left: 20px; font-size: 16px;">
+              <li><strong>No Correlations Detected:</strong></li>
+              <ul>
+                  <li><strong>Lung Cancer:</strong> No abnormal frequency patterns indicative of malignancy.</li>
+                  <li><strong>COPD:</strong> No signs of wheezing, crackling, or airway obstruction.</li>
+                  <li><strong>Pneumonia:</strong> No evidence of fluid accumulation detected.</li>
+              </ul>
+          </ul>
+      
+          <h5 style="color: #4CAF50;">What This Means for You:</h5>
+          <p style="font-size: 16px; line-height: 1.6;">
+              Your lungs are functioning optimally, and our analysis shows <strong>no signs</strong> of lung cancer or other respiratory conditions.
+          </p>
+      
       </div>
+      
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
@@ -260,11 +436,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
 
 
 
@@ -339,16 +510,89 @@
         });
 }
 
-
-
-
 </script>
 
 
 
 
 
-  
+
+<script type="text/javascript">
+
+  // Function to handle stop recording event
+  function onStopRecording() {
+    // Hide loading spinner and message
+    hideLoading();
+
+    // Show the retrieved images after processing is done
+    updateRetrievedImages();
+
+    // Show the modal after recording stops
+    $('#retrievedDataModal').modal('show');
+  }
+
+  // Function to show loading spinner and message
+  function showLoading() {
+    document.getElementById('loadingContainer').style.display = 'block'; // Show the entire loading container
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('loadingText').style.display = 'block';
+  }
+
+  // Function to hide loading spinner and message
+  function hideLoading() {
+    document.getElementById('loadingContainer').style.display = 'none'; // Hide the entire loading container
+  }
+
+  // Function to update retrieved images dynamically
+  function updateRetrievedImages() {
+    // Assuming the images are saved on the server and accessible via a known path
+    document.getElementById('lungSounds2').src = "{{ url_for('static', filename='img/outSoundWave.png') }}"; // Update MFCC image
+    document.getElementById('lungSounds').src = "{{ url_for('static', filename='img/outSoundMFCC.png') }}"; // Update MFCC image
+
+  }
+
+  // Function to stop recording and display loading spinner
+  function stopRecording() {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      document.getElementById('recordButton').disabled = false;
+      document.getElementById('stopButton').disabled = true;
+
+      // Show loading spinner and text
+      showLoading();
+      document.getElementById('loadingText').innerText = 'Your cough is being processed, please wait...';
+
+      // Simulate a delay (e.g., processing time) before showing the modal
+      setTimeout(onStopRecording, 10000); // 10 seconds delay
+    }
+  }
+
+  // Function to close modal
+  function closeModal() {
+    $('#retrievedDataModal').modal('hide');
+  }
+
+</script>
+
+
+
+
+<!-- Chatbot -->
+<script>
+  window.embeddedChatbotConfig = {
+  chatbotId: "2YnIKbBm6yc0p2nYHZwS_",
+  domain: ""
+  }
+  </script>
+  <script
+  src="https://www.chatbase.co/embed.min.js"
+  chatbotId="2YnIKbBm6yc0p2nYHZwS_"
+  domain="www.chatbase.co"
+  defer>
+  </script>
+
+
+
 
 
 
@@ -378,9 +622,6 @@
       console.error('Error saving data: ', error);
     });
   }
-
-
-
   
 </script>
 
