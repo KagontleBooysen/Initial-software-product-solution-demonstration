@@ -39,5 +39,10 @@ Impilo is created using the Anaconda environment, which is more organized, easy 
 2. You can run **pip install -r requirements.txt**
 3. Lastly, you can run the app.py
 
+## Step 8: Testing the platform
+1. When performing clinical trials(Pre-trained audio sounds; consider using this audio file firstly: **normal1.wav** and the rest you can run them randomly!).
+2. Real-time analysis you can record yourself and see something fun😊
+
+
 
    
